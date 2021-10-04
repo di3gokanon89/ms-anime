@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devpredator.msentity.entity.Anime;
+import com.devpredator.msanime.exceptions.AnimeNullException;
 import com.devpredator.msanime.repository.AnimeRepository;
 import com.devpredator.msanime.service.AnimeService;
 
@@ -43,6 +44,10 @@ public class AnimeServiceImpl implements AnimeService {
 
 	@Override
 	public Anime saveAnime(Anime anime) {
+		
+		if (anime == null) {
+			throw new AnimeNullException("The anime is null");
+		}
 		
 		if (anime.getId() == null) {
 			anime.setFechaCreacion(LocalDateTime.now());			
